@@ -23,7 +23,7 @@ function populateCategories() {
 }
 function filterQuotes() {
   const categoryFilter = document.getElementById("categoryFilter"); // ✅ presence for checker
-  const selected = categoryFilter.value;
+  const selected = categoryFilter.value;git push
   localStorage.setItem("selectedCategory", selected);
 
   const filtered = selected === "all"
