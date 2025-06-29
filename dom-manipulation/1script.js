@@ -16,7 +16,7 @@ function loadQuotes() {
       },
       { text: "Stay curious. Learn always.", category: "Inspiration" },
     ];
-    localStorage.setItem("quotes", JSON.stringify(quotes)); // ✅ Checker wants this
+    localStorage.setItem("quotes", JSON.stringify(quotes));
   }
 }
 
@@ -26,7 +26,7 @@ function saveQuotes() {
 
 function populateCategories() {
   const categoryFilter = document.getElementById("categoryFilter");
-  const categories = ["all", ...new Set(quotes.map((q) => q.category))]; // ✅ map()
+  const categories = ["all", ...new Set(quotes.map((q) => q.category))];
 
   categoryFilter.innerHTML = "";
   categories.forEach((cat) => {
