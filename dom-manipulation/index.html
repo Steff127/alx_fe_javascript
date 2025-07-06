@@ -13,7 +13,16 @@
 
     <!-- Placeholder for JS-generated form -->
     <div id="quoteFormContainer"></div>
-
+<!-- Import/Export Controls -->
+    <div>
+      <input
+        type="file"
+        id="importFile"
+        accept=".json"
+        onchange="importFromJsonFile(event)"
+      />
+      <button id="exportBtn">Export Quotes</button>
+    </div>
     <script src="script.js"></script>
   </body>
 </html>
