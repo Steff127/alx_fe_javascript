@@ -245,7 +245,10 @@ const SERVER_URL = "https://jsonplaceholder.typicode.com/posts";
 
 async function fetchQuotesFromServer() {
   try {
-    const res = await fetch(SERVER_URL);
+    const res = await fetch({
+      method: POST,
+      headers: { "Content-Type": "application/json" },
+    });
     const data = await res.json();
     return data.slice(0, 10).map((post) => ({
       text: post.title,
