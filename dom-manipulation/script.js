@@ -278,3 +278,7 @@ setInterval(syncWithServer, 30000); // Every 30 seconds
 
 const syncBtn = document.getElementById("syncBtn");
 if (syncBtn) syncBtn.addEventListener("click", syncWithServer);
+
+function fetchQuotesFromServer() {
+  return {}
+}
