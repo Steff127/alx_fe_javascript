@@ -314,3 +314,8 @@ async function syncQuotes() {
     console.error("Sync failed:", error);
   }
 }
+
+async function syncQuotes() {
+  try {
+    const response = await fetch("https://jsonplaceholder.typicode.com/posts");
+    if (!response.ok) throw new Error("Failed to fetch from server");
