@@ -242,3 +242,39 @@ window.onload = function () {
   }
 };
 
+const SERVER_URL = "https://jsonplaceholder.typicode.com/posts";
+
+async function fetchServerQuotes() {
+  try {
+    const res = await fetch(SERVER_URL);
+    const data = await res.json();
+    return data.slice(0, 10).map(post => ({
+      text: post.title,
+      category: "Server"
+    }));
+  } catch (error) {
+    console.error("Failed to fetch server quotes:", error);
+    return [];
+  }
+}
+
+async function syncWithServer() {
+  const serverQuotes = await fetchServerQuotes();
+  const localTexts = new Set(quotes.map(q => q.text));
+
+  const newQuotes = serverQuotes.filter(q => !localTexts.has(q.text));
+  if (newQuotes.length > 0) {
+    quotes.push(...newQuotes);
+    localStorage.setItem("quotes", JSON.stringify(quotes));
+    populateCategories();
+    showSyncNotification(newQuotes.length);
+  }
+}
+function showSyncNotification(count) {
+  alert(`${count} new quote${count > 1 ? "s" : ""} synced from server!`);
+}
+
+setInterval(syncWithServer, 30000); // Every 30 seconds
+
+const syncBtn = document.getElementById("syncBtn");
+if (syncBtn) syncBtn.addEventListener("click", syncWithServer);
