@@ -73,7 +73,6 @@ window.onload = function () {
     .addEventListener("click", showRandomQuote);
 };
 
-
 // let quotes = [];
 
 function loadQuotes() {
@@ -244,13 +243,13 @@ window.onload = function () {
 
 const SERVER_URL = "https://jsonplaceholder.typicode.com/posts";
 
-async function fetchServerQuotes() {
+async function fetchQuotesFromServer() {
   try {
     const res = await fetch(SERVER_URL);
     const data = await res.json();
-    return data.slice(0, 10).map(post => ({
+    return data.slice(0, 10).map((post) => ({
       text: post.title,
-      category: "Server"
+      category: "Server",
     }));
   } catch (error) {
     console.error("Failed to fetch server quotes:", error);
@@ -260,9 +259,9 @@ async function fetchServerQuotes() {
 
 async function syncWithServer() {
   const serverQuotes = await fetchServerQuotes();
-  const localTexts = new Set(quotes.map(q => q.text));
+  const localTexts = new Set(quotes.map((q) => q.text));
 
-  const newQuotes = serverQuotes.filter(q => !localTexts.has(q.text));
+  const newQuotes = serverQuotes.filter((q) => !localTexts.has(q.text));
   if (newQuotes.length > 0) {
     quotes.push(...newQuotes);
     localStorage.setItem("quotes", JSON.stringify(quotes));
@@ -280,5 +279,9 @@ const syncBtn = document.getElementById("syncBtn");
 if (syncBtn) syncBtn.addEventListener("click", syncWithServer);
 
 function fetchQuotesFromServer() {
-  return {}
+  fetch("https://jsonplaceholder.typicode.com/posts")
+    .then((response) => response.json()) // Parse the JSON response
+    .then((data) => console.log(data)) // Log the data to the console
+    .catch((error) => console.error("Error:", error));
+  return {};
 }
